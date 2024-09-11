@@ -1,0 +1,39 @@
+#root {
+  max-width: 1920px;
+  margin: 0 auto;
+  text-align: center;
+  
+}
+html, body {
+  height: 100%; /* Ensure body and html take up full height */
+  margin: 0; /* Remove default margin */
+  font-size: 1em; /* Default text size */
+}
+
+#headerbanner{
+  background-color: #1d3557;
+  
+  width: 92%;
+  height: auto;
+  margin: 0 auto; /* Center the element horizontally */
+  margin-top: 3px;
+  box-sizing: border-box; /* Include padding in the element's width */
+  font-size: 1em; /* Text size relative to the parent (body) */
+  border: 2px solid #f1faee; border-radius: 10px; padding: 2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.topbannerp{
+  padding-bottom: 4px;
+  padding-top: 4px;
+  margin: 0 auto; /* Center the element horizontally */
+  width: max-content;
+  display: inline;
+  
+}
+.wrapper{
+  display: inline;
+  width: max-content;
+  margin-left: 25px;
+  margin-right: 25px;
+}
