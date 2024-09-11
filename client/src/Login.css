@@ -1,0 +1,95 @@
+/* body {
+    filter: blur(10px);
+    z-index: 0;
+} */
+#loginPage {
+    width: 100vw; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    
+}
+.loginContainer{
+    border-radius: 25px;
+    width: 30%;
+    position: absolute;
+    background-color: #1d3557;
+    filter: none;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+.loginContainer.login-mode{
+    height: 43%;
+}
+.loginContainer.register-mode{
+    height: 60%;
+}
+
+#loginForm{
+    width: 90%;
+    height: 100%;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.loginH{
+    font-family: 'Courier New', monospace;
+    padding: 2px;
+    width: 100%;
+    margin: 10px;
+    margin-top: 20px;
+}
+
+
+
+.loginFormElement{
+    font-family: 'Courier New', monospace;
+    margin-bottom: 3%;
+    margin-left: 10%;
+    font-size: 1.2em;
+}
+
+.formText{
+    position: relative;
+}
+#emailInput, #emailPassword{
+    width: 70%;
+}
+
+#buttonDiv{
+    width: 100%;
+    display: flex;
+}
+#forgotButtonDiv{
+
+    margin-left: 27%;
+    
+}
+.button{
+    display: inline-block;
+    width: 10em;
+    height: 2em;
+    padding: 0;
+    background-color: #e63946;
+    margin-top: 20px;
+    margin-left: 10%;
+}
+.buttonP{
+    position: relative;
+    color: #f1faee;
+    font-family: 'Courier New', monospace;
+    margin: 1px;
+}
+
+.blurred{
+    filter: blur(10px); /* Blur effect */
+}
