@@ -2,59 +2,40 @@ import './Login.css'
 import React, { useEffect } from 'react';
 import { useState } from 'react'
 
-const Login = () => {
-
-    // State to track whether the user is in login or register mode
+const Login = ({ onSuccessfulLogin }) => {
     const [isRegistering, setIsRegistering] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [loginFailed, setLoginFailed] = useState(false);
 
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
         email: '',
         password: ''
-    })
+    });
 
-    useEffect(() => {
-        const root = document.getElementById('root');
-        const children = root.children;
-
-        // Get the login component itself
-        const loginComponent = document.getElementById('loginPage');
-        const loginComponentContainer = document.querySelector('.loginContainer');
-
-        // Apply blur to all children except the login component
-        for (let i = 0; i < children.length; i++) {
-            if (children[i] !== loginComponent) {
-                children[i].classList.add('blurred'); // Add blur class
-            }
-        }
-    }, []);
-
-    // Function to handle switching to registration mode
     const handleRegisterClick = () => {
         setIsRegistering(true);
     };
 
-    // Function to handle switching back to login mode (if needed)
     const handleBackToLoginClick = () => {
         setIsRegistering(false);
     };
 
-    //Handle switching from register to login
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
             [name]: value
         });
-    }
+    };
 
-    // Handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault();  // Prevent form from refreshing the page
+        e.preventDefault();
 
-        const endpoint = isRegistering ? '/api/register' : '/api/login'; // Determine endpoint based on form type
-        const url = `http://localhost:5000${endpoint}`;  // Use the localhost:5000 as the base URL
+        const endpoint = isRegistering ? '/api/register' : '/api/login';
+        const url = `http://localhost:5000${endpoint}`;
 
         const data = isRegistering ? {
             firstName: formData.firstName,
@@ -76,12 +57,26 @@ const Login = () => {
             });
 
             const result = await response.json();
-            console.log(result);  // Check response in the browser console
+
+            if (!response.ok) {
+                setErrorMessage(result.message);
+                setLoginFailed(true);
+                setFormData({
+                    ...formData,
+                    password: '' // Clear the password field
+                });
+            } else {
+                setIsAuthenticated(true);
+                setErrorMessage('');
+                setLoginFailed(false);
+                console.log('Success:', result);
+                localStorage.setItem('token', result.token);
+                onSuccessfulLogin(); // Call the success handler from props
+            }
         } catch (error) {
             console.error('Error during submission:', error);
         }
     };
-
     return (
 
 
@@ -89,6 +84,15 @@ const Login = () => {
         <>
 
             <div id="loginPage">
+                {loginFailed && (
+
+                    <>
+                        <div id="loginFailed">
+                        {errorMessage && <h1 className='error'>{errorMessage}</h1>} {/* Show error message */}
+                        </div>
+                    </>
+
+                )}
 
                 <div className={`loginContainer ${isRegistering ? 'register-mode' : 'login-mode'}`}>
                     <form id='loginForm' onSubmit={handleSubmit}>
@@ -152,24 +156,40 @@ const Login = () => {
                                 onChange={handleInputChange}
                                 required
                             />
-                            </div>
-                            <div id="buttonDiv">
-                                <button type="submit" className="button">
-                                    <p className="buttonP">{isRegistering ? 'Register' : 'Login'}</p>
-                                </button>
+                        </div>
+                        <div className='fieldContainer'>
+                            <p className='forgotPassword'> Forgot your password?</p>
+                        </div>
+                        <div className='fieldContainer'>
+                            <p className='rememberMe'>Keep me signed in?</p>
+                        </div>
+                        <div id="buttonDiv">
+                            <button type="submit" className="button">
+                                <p className="buttonP">{isRegistering ? 'Register' : 'Login'}</p>
+                            </button>
 
-                                {!isRegistering && (
+
+                            {!isRegistering && (
+                                <>
+                                    <div className='divider'>
+
+                                    </div>
                                     <button type="button" className="button" onClick={handleRegisterClick}>
                                         <p className="buttonP">Register</p>
                                     </button>
-                                )}
-                            </div>
+                                </>
 
-                            {isRegistering && (
-                                <button type="button" className="button" onClick={handleBackToLoginClick}>
-                                    <p className="buttonP">&lt;</p>
-                                </button>
+
+
                             )}
+                        </div>
+
+                        {isRegistering && (
+
+                            <button type="button" className="button" onClick={handleBackToLoginClick}>
+                                <p className="buttonP">&lt;</p>
+                            </button>
+                        )}
 
                     </form>
                 </div>

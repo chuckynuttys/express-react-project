@@ -16,7 +16,7 @@
 }
 #searchbar{
   width: 40%;
-  margin: 0 auto; /* Center the element horizontally */
+  margin-right: 30px;
   display: flex;
   align-items: center;
     justify-content: center;
@@ -27,7 +27,7 @@
     display: inline;
     background-color: #f1faee;
     color:  black;
-   
+    width: 100%;
   }
   #searchbarbg{
     border-left: 2px solid gray; border-top-left-radius: 20px; 
@@ -51,7 +51,7 @@
     display: inline-block;
     width: 2em;
     height: 2em;
-    background-color: white;
+    background-color: #f1faee;
     
     border-right: 2px solid gray; border-top-right-radius: 20px; 
     border-bottom-right-radius: 20px; padding: 2px;
@@ -70,3 +70,11 @@
   margin: 0 auto;
   padding-top: 2px;
 }
+.searchBarItem{
+  background-color: #e63946;
+  margin-left: 10px;
+}
+.searchBarItemText{
+  color: #1d3557;
+}
+

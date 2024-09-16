@@ -1,22 +1,16 @@
-// const express = require('express')
-// const app = express()
-
-// app.get("/api", (req, res) => {
-//     res.json({ "users": ["userOne", "userTwo", "userThree"] })
-// })
-
-
-
-// app.listen(5000, () => {console.log("Server started on port 5000")})
-// server.js
 const express = require('express');
 const app = express();
+const loginRoutes = require('./routes/loginRoutes');
+const registerRoutes = require('./routes/registerRoutes');
 const port = 5000;
 const cors = require('cors');
 
-// Enable CORS for all requests
-app.use(cors());
 
+app.use(cors());
+app.use(express.json()); 
+//register the route
+app.use('/api', loginRoutes);
+app.use('/api', registerRoutes);
 // app.get('/api/ebay/items', async (req, res) => {
 //   const fetch = (await import('node-fetch')).default;
 
@@ -44,18 +38,18 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-console.log("test");
+//console.log("test");
 
 // Middleware to parse incoming JSON requests
 app.use(express.json());
 
-app.post('/api/login', (req, res) => {
-  console.log('Received request at /api/login or /api/register');
-    console.log('Form Data:', req.body);  // Log the form data to check if it's coming through
-    res.status(200).json({ message: 'Login data received' });
-});
+// app.post('/api/login', (req, res) => {
+//   console.log('Received request at /api/login or /api/register');
+//     console.log('Login Form Data:', req.body);  // Log the form data to check if it's coming through
+//     res.status(200).json({ message: 'Login data received' });
+// });
 
-app.post('/api/register', (req, res) => {
-    console.log('Form Data:', req.body);  // Log the form data to check if it's coming through
-    res.status(200).json({ message: 'Registration data received' });
-});
+// app.post('/api/register', (req, res) => {
+//     console.log('Register Form Data:', req.body);  // Log the form data to check if it's coming through
+//     res.status(200).json({ message: 'Registration data received' });
+// });
